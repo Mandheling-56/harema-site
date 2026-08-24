@@ -1,69 +1,236 @@
-import Image from "next/image";
+import Link from "next/link";
+import Hero from "@/components/Hero";
+import { getAllNews, formatDate } from "@/lib/news";
+
+const WORKS = [
+  { year: "2024", cat: "著書", t: "『総合診療科の僕が患者さんから教わった70歳からの老いない生き方』", pub: "KADOKAWA" },
+  { year: "2026", cat: "監修", t: "『「もしかして認知症？」と不安になったら読むスマホ活用術』", pub: "かんき出版" },
+  { year: "2024", cat: "連載", t: "「医師が勧める老いない食材」", pub: "幻冬舎ゴールドオンライン" },
+  { year: "2025", cat: "寄稿", t: "「処方箋の出ない保健室」", pub: "北海道医師会『北海道医報』" },
+  { year: "2025", cat: "執筆", t: "「けんこう教室 暮らしの保健室」", pub: "全日本民医連『いつでも元気』" },
+  { year: "2025", cat: "監修", t: "「70歳を過ぎても病気知らずな『パワフルシニア』の共通点」", pub: "『からだにいいこと』" },
+  { year: "継続", cat: "記事監修", t: "医療・健康記事の監修を多数担当", pub: "Medical DOC" },
+  { year: "—", cat: "取材", t: "学会公式インタビュー「暮らしの保健室」", pub: "日本プライマリ・ケア連合学会" },
+];
 
 export default function Home() {
+  const news = getAllNews().slice(0, 3);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main>
+      <Hero />
+
+      {/* PURPOSE */}
+      <section className="section purpose" id="purpose" style={{ textAlign: "center", paddingTop: 150 }}>
+        <div className="glow" style={{ width: 480, height: 320, top: -40, left: "50%", transform: "translateX(-50%)", background: "rgba(255,240,200,.5)" }} />
+        <div className="wrap">
+          <div className="en-label">PURPOSE</div>
+          <blockquote>
+            つながりを、処方する。
+            <br />
+            不安の雲間に、ひとすじの光を。
+          </blockquote>
+          <p className="sec-lead" style={{ margin: "0 auto" }}>
+            株式会社WeLaは、医師・舛森悠が代表を務める、医療コンテンツとコミュニティの会社です。「正しさ」と「楽しさ」を両立させ、誰もが安心して人生を選べる情報のインフラを。病院の中だけでは完結しない「生活」や「人生」を支え、医療の情報格差をなくす。その先に届けたいものを、私たちは「晴れ間」と呼んでいます。
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* BUSINESS */}
+      <section className="section" id="phases">
+        <div className="wrap">
+          <div className="sec-head"><span className="en">BUSINESS</span><span className="line" /></div>
+          <h2 className="sec-title">3つの晴れ間</h2>
+          <p className="sec-lead">予防から治療、そして心へ。人生のフェーズに合わせて、それぞれの晴れ間をお届けします。</p>
+          <div className="phase-grid">
+            <div className="phase">
+              <div className="num">01</div>
+              <h3>予防に晴れ間を。</h3>
+              <div className="en">PREVENTION</div>
+              <p>「難しい」を「楽しい」へ。正しい医療情報をエンターテイメントの力で翻訳し、毎日の暮らしに届けます。</p>
+              <div className="items">
+                <span>YouTube医療大学</span>
+                <span>SNS・記事・健康教育</span>
+                <span>企業タイアップ・PR動画制作</span>
+                <span>講演・産業医・コンサルティング</span>
+              </div>
+            </div>
+            <div className="phase">
+              <div className="num">02</div>
+              <h3>治療に晴れ間を。</h3>
+              <div className="en">TREATMENT</div>
+              <p>選ぶ力を、その人に返す。迷ったとき、そばで一緒に考える医療のかたちを構想しています。</p>
+              <div className="items">
+                <span>オンライン診療（構想中）</span>
+              </div>
+              <span className="badge">COMING SOON</span>
+            </div>
+            <div className="phase">
+              <div className="num">03</div>
+              <h3>心に晴れ間を。</h3>
+              <div className="en">WELL-BEING</div>
+              <p>孤立を防ぎ、社会とのつながりを処方する。伴走とは、その人の力が戻るまで隣にいること。</p>
+              <div className="items">
+                <span>オンラインコミュニティ「ココカラ」</span>
+                <span>公式LINE</span>
+                <span>地域の居場所づくり（はこだて暮らしの保健室）</span>
+                <span>グッズ・ものづくり（準備中）</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* PARTNERS */}
+      <section className="section" id="logos">
+        <div className="glow" style={{ width: 400, height: 280, top: 20, right: -60, background: "rgba(210,228,240,.55)" }} />
+        <div className="wrap">
+          <div className="sec-head"><span className="en">PARTNERS</span><span className="line" /></div>
+          <h2 className="sec-title">タイアップ実績</h2>
+          <p className="sec-lead">医学的な誠実さを軸に、企業の皆さまと予防啓発のコンテンツをつくっています。</p>
+          <div className="logo-row">
+            {["COMPANY A", "COMPANY B", "COMPANY C", "COMPANY D", "COMPANY E", "COMPANY F"].map((c) => (
+              <span key={c} className="logo-item">{c}</span>
+            ))}
+          </div>
+          <p className="logo-note">※掲載許諾をいただいた企業様のロゴが入ります（順次追加）</p>
+        </div>
+      </section>
+
+      {/* OUR MEDIA */}
+      <section className="section">
+        <div className="glow" style={{ width: 520, height: 340, top: 60, left: -80, background: "rgba(255,240,200,.45)" }} />
+        <div className="wrap">
+          <div className="sec-head"><span className="en">OUR MEDIA</span><span className="line" /></div>
+          <h2 className="sec-title">発信のこと</h2>
+          <div className="media-panel">
+            <a
+              className="yt-thumb"
+              href="https://www.youtube.com/@YouTubeMedical"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube医療大学を開く"
+            >
+              <div className="play" />
+            </a>
+            <div className="media-text">
+              <h3>YouTube医療大学</h3>
+              <p>現役医師が、健康と医療の「わからない」をやさしくほどく医療教育チャンネル。シニア世代を中心に、多くの方の暮らしのそばでご覧いただいています。</p>
+              <a
+                className="btn-navy"
+                href="https://www.youtube.com/@YouTubeMedical"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                チャンネルを見る →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WORKS */}
+      <section className="section" id="works">
+        <div className="glow" style={{ width: 420, height: 300, top: 80, right: -40, background: "rgba(255,244,214,.5)" }} />
+        <div className="wrap">
+          <div className="sec-head"><span className="en">WORKS &amp; MEDIA</span><span className="line" /></div>
+          <h2 className="sec-title">実績</h2>
+          <p className="sec-lead">出版・連載・監修・メディア掲載。</p>
+          <div className="rule-list">
+            {WORKS.map((w, i) => (
+              <div key={i} className="rule-item">
+                <span className="year">{w.year}</span>
+                <span className="cat">{w.cat}</span>
+                <span className="t">{w.t}</span>
+                <span className="pub">{w.pub}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FOUNDER */}
+      <section className="section" id="founder">
+        <div className="glow" style={{ width: 500, height: 340, top: 40, left: -70, background: "rgba(255,240,200,.5)" }} />
+        <div className="wrap">
+          <div className="sec-head"><span className="en">FOUNDER</span><span className="line" /></div>
+          <h2 className="sec-title">代表紹介</h2>
+          <div className="founder-panel">
+            <div className="founder-photo">PHOTO</div>
+            <div className="founder-text">
+              <h3>舛森 悠</h3>
+              <div className="en-name">YU MASUMORI — REPRESENTATIVE DIRECTOR / PHYSICIAN</div>
+              <p>総合診療専門医として現場に立ちながら、情報発信を行う「架け橋」。病気だけでなく、その人の人生（Narrative）を診る医療を実践しています。</p>
+              <h4>資格</h4>
+              <p className="quals">
+                総合診療専門医 / 新・家庭医療専門医 / 認知症予防専門医 /<br />
+                日本医師会認定産業医 / 日本プライマリ・ケア連合学会認定指導医
+              </p>
+              <h4>著書・監修</h4>
+              <div className="books">
+                <span>『総合診療科の僕が患者さんから教わった70歳からの老いない生き方』（著書・KADOKAWA）</span>
+                <span>『「もしかして認知症？」と不安になったら読むスマホ活用術』（監修・かんき出版）</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NEWS */}
+      <section className="section" id="news">
+        <div className="glow" style={{ width: 380, height: 260, bottom: -30, right: "10%", background: "rgba(255,244,214,.5)" }} />
+        <div className="wrap">
+          <div className="sec-head"><span className="en">NEWS</span><span className="line" /></div>
+          <h2 className="sec-title">お知らせ</h2>
+          <div className="rule-list">
+            {news.map((n) => (
+              <Link key={n.slug} className="rule-item" href={`/news/${n.slug}`}>
+                <span className="date">{formatDate(n.date)}</span>
+                <span className="cat">{n.category}</span>
+                <span className="t">{n.title}</span>
+              </Link>
+            ))}
+          </div>
+          <p style={{ marginTop: 30 }}>
+            <Link href="/news" className="btn-navy">お知らせ一覧 →</Link>
+          </p>
+        </div>
+      </section>
+
+      {/* COMPANY */}
+      <section className="section" id="company">
+        <div className="glow" style={{ width: 440, height: 300, top: 60, left: "50%", transform: "translateX(-50%)", background: "rgba(210,228,240,.5)" }} />
+        <div className="wrap">
+          <div className="sec-head"><span className="en">COMPANY</span><span className="line" /></div>
+          <h2 className="sec-title">会社概要</h2>
+          <dl className="company-table">
+            <div className="company-row"><dt>会社名</dt><dd>株式会社 WeLa（ウィーラ）</dd></div>
+            <div className="company-row"><dt>代表者</dt><dd>舛森 悠</dd></div>
+            <div className="company-row"><dt>設立</dt><dd>2024年7月</dd></div>
+            <div className="company-row"><dt>資本金</dt><dd>1,000,000円</dd></div>
+            <div className="company-row"><dt>所在地</dt><dd>〒060-0062 北海道札幌市中央区南2条西5丁目31番地1 RM Bld. 701</dd></div>
+            <div className="company-row"><dt>事業内容</dt><dd>メディア運用・動画制作・出版・医療コンサルティング</dd></div>
+          </dl>
+          <p className="sec-lead" style={{ marginTop: 30, fontSize: 12.5 }}>
+            税務・法務・経営それぞれの専門家と連携し、誠実な事業運営に努めています。
+          </p>
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section className="section" id="contact" style={{ textAlign: "center", paddingBottom: 170 }}>
+        <div className="glow" style={{ width: 560, height: 360, top: 40, left: "50%", transform: "translateX(-50%)", background: "rgba(255,238,196,.55)" }} />
+        <div className="wrap">
+          <div className="en-label">CONTACT</div>
+          <blockquote className="contact-quote">晴れ間を、ご一緒に。</blockquote>
+          <p style={{ fontSize: 13, color: "#5a6276", marginBottom: 44 }}>
+            タイアップのご相談、講演・執筆のご依頼、コミュニティのこと、取材のお申し込みなど。
+            <br />
+            内容を問わず、こちらからお気軽にご連絡ください。
+          </p>
+          <Link className="btn-contact" href="/contact">お問い合わせ</Link>
+        </div>
+      </section>
+    </main>
   );
 }
