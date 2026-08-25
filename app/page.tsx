@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
-import { getAllNews, formatDate } from "@/lib/news";
+import { getAll, formatDate } from "@/lib/content";
 
 const WORKS = [
   { year: "2024", cat: "著書", t: "『総合診療科の僕が患者さんから教わった70歳からの老いない生き方』", pub: "KADOKAWA" },
@@ -14,11 +14,23 @@ const WORKS = [
 ];
 
 export default function Home() {
-  const news = getAllNews().slice(0, 3);
+  const news = getAll("news").slice(0, 3);
+  const latest = news[0];
+  const columns = getAll("column").slice(0, 3);
 
   return (
     <main>
       <Hero />
+
+      {/* 最新のお知らせ1件だけを細く通知する行 */}
+      {latest && (
+        <Link className="ticker" href={`/news/${latest.slug}`}>
+          <span className="tag font-en">NEWS</span>
+          <span className="date font-en">{formatDate(latest.date)}</span>
+          <span className="t">{latest.title}</span>
+          <span className="arw font-en">→</span>
+        </Link>
+      )}
 
       {/* PURPOSE */}
       <section className="section purpose" id="purpose" style={{ textAlign: "center", paddingTop: 150 }}>
@@ -180,6 +192,31 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* COLUMN */}
+      {columns.length > 0 && (
+        <section className="section" id="column">
+          <div className="glow" style={{ width: 460, height: 320, top: 40, left: "-60px", background: "rgba(255,240,200,.45)" }} />
+          <div className="wrap">
+            <div className="sec-head"><span className="en">COLUMN</span><span className="line" /></div>
+            <h2 className="sec-title">コラム</h2>
+            <p className="sec-lead">医療と暮らしのあいだにある話を、やさしい言葉で。</p>
+            <div className="column-grid">
+              {columns.map((c) => (
+                <Link key={c.slug} className="column-card" href={`/column/${c.slug}`}>
+                  <span className="date font-en">{formatDate(c.date)}</span>
+                  <h3>{c.title}</h3>
+                  <p className="excerpt">{c.excerpt}</p>
+                  <span className="more font-en">READ →</span>
+                </Link>
+              ))}
+            </div>
+            <p style={{ marginTop: 40 }}>
+              <Link href="/column" className="btn-navy">コラム一覧 →</Link>
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* NEWS */}
       <section className="section" id="news">

@@ -70,6 +70,7 @@ export default function Footer() {
                 YouTube医療大学
               </a>
               <Link href="/#works">実績</Link>
+              <Link href="/column">コラム</Link>
               <Link href="/news">お知らせ</Link>
             </div>
           </div>

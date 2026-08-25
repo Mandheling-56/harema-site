@@ -8,6 +8,7 @@ const links = [
   { href: "/#phases", label: "事業内容" },
   { href: "/#works", label: "実績" },
   { href: "/#founder", label: "代表紹介" },
+  { href: "/column", label: "コラム" },
   { href: "/news", label: "お知らせ" },
   { href: "/recruit", label: "採用情報" },
 ];
