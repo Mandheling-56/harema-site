@@ -88,10 +88,15 @@ export default function Home() {
           <div className="sec-head"><span className="en">PARTNERS</span><span className="line" /></div>
           <h2 className="sec-title">タイアップ実績</h2>
           <p className="sec-lead">医学的な誠実さを軸に、企業の皆さまと予防啓発のコンテンツをつくっています。</p>
-          <div className="logo-row">
-            {["COMPANY A", "COMPANY B", "COMPANY C", "COMPANY D", "COMPANY E", "COMPANY F"].map((c) => (
-              <span key={c} className="logo-item">{c}</span>
-            ))}
+          <div className="logo-marquee">
+            <div className="logo-track">
+              {/* 同じ列を2周させてシームレスにループ（translateX(-50%)前提） */}
+              {[0, 1].map((dup) =>
+                ["COMPANY A", "COMPANY B", "COMPANY C", "COMPANY D", "COMPANY E", "COMPANY F"].map((c) => (
+                  <span key={`${dup}-${c}`} className="logo-item" aria-hidden={dup === 1}>{c}</span>
+                ))
+              )}
+            </div>
           </div>
           <p className="logo-note">※掲載許諾をいただいた企業様のロゴが入ります（順次追加）</p>
         </div>

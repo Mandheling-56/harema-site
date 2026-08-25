@@ -79,27 +79,31 @@ body {
     radial-gradient(200px 150px at 42% 45%, rgba(255,246,212,.7), transparent 70%),
     radial-gradient(150px 110px at 65% 50%, rgba(255,238,190,.65), transparent 70%);
   filter: url(#komorebiFilter) blur(6px);
-  animation: komorebi-sway 16s ease-in-out infinite alternate;
+  animation: komorebi-sway 10s ease-in-out infinite alternate;
 }
 @keyframes komorebi-sway {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-14px, 8px) scale(1.02); }
-  100% { transform: translate(10px, -6px) scale(1.01); }
+  0% { transform: translate(0, 0) scale(1); opacity: .45; }
+  50% { transform: translate(-42px, 22px) scale(1.05); opacity: .75; }
+  100% { transform: translate(34px, -18px) scale(1.02); opacity: .55; }
 }
 .ray {
   position: absolute; top: -12%; left: 58%; width: 340px; height: 130%;
   transform-origin: top center;
   background: linear-gradient(180deg, rgba(255,244,204,.55), rgba(255,244,204,0) 72%);
   filter: blur(28px); opacity: .7;
-  animation: sway 11s ease-in-out infinite alternate;
+  animation: sway 7s ease-in-out infinite alternate;
 }
-.ray.r2 { left: 44%; width: 180px; animation-duration: 14s; animation-delay: -4s; opacity: .5; transform: rotate(9deg); }
-.ray.r3 { left: 72%; width: 220px; animation-duration: 17s; animation-delay: -8s; opacity: .45; transform: rotate(-7deg); }
-@keyframes sway { from { transform: rotate(-4deg); } to { transform: rotate(5deg); } }
+.ray.r2 { left: 44%; width: 180px; animation-duration: 9s; animation-delay: -4s; opacity: .5; }
+.ray.r3 { left: 72%; width: 220px; animation-duration: 11s; animation-delay: -8s; opacity: .45; }
+@keyframes sway {
+  from { transform: rotate(-7deg); opacity: .35; }
+  50% { opacity: .85; }
+  to { transform: rotate(8deg); opacity: .5; }
+}
 .cloud { position: absolute; border-radius: 999px; background: rgba(255,255,255,.62); filter: blur(34px); animation: drift linear infinite; }
-.cloud.c1 { width: 420px; height: 110px; top: 16%; left: -8%; animation-duration: 65s; }
-.cloud.c2 { width: 300px; height: 84px; top: 32%; left: 30%; animation-duration: 85s; animation-delay: -30s; opacity: .75; }
-.cloud.c3 { width: 520px; height: 130px; top: 8%; left: 55%; animation-duration: 75s; animation-delay: -50s; opacity: .6; }
+.cloud.c1 { width: 420px; height: 110px; top: 16%; left: -8%; animation-duration: 34s; }
+.cloud.c2 { width: 300px; height: 84px; top: 32%; left: 30%; animation-duration: 46s; animation-delay: -18s; opacity: .75; }
+.cloud.c3 { width: 520px; height: 130px; top: 8%; left: 55%; animation-duration: 40s; animation-delay: -28s; opacity: .6; }
 @keyframes drift { from { transform: translateX(-6vw); } to { transform: translateX(106vw); } }
 .particle { position: absolute; bottom: -4vh; border-radius: 50%; background: rgba(255,232,170,.85); animation: rise linear infinite; opacity: 0; }
 @keyframes rise {
@@ -108,9 +112,12 @@ body {
   88% { opacity: .4; }
   100% { transform: translateY(-108vh); opacity: 0; }
 }
+/* 視差効果を減らす設定でも「完全静止」にはせず、粒子だけ止めてごく穏やかな明滅は残す */
 @media (prefers-reduced-motion: reduce) {
-  .ray, .cloud, .particle, .glow, .komorebi { animation: none !important; }
   .particle { display: none; }
+  .cloud { animation-duration: 120s !important; }
+  .ray { animation-duration: 24s !important; }
+  .komorebi { animation-duration: 30s !important; }
 }
 .hero-inner { position: relative; text-align: center; padding: 0 24px; z-index: 2; }
 .hero-mark { font-family: var(--font-en), serif; font-size: 15px; letter-spacing: .55em; color: var(--navy-soft); margin-bottom: 34px; }
@@ -141,8 +148,11 @@ body {
 .sec-head .line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(176,137,74,.4), transparent); }
 .sec-title { font-family: var(--font-serif), serif; font-size: clamp(24px, 3.4vw, 34px); color: var(--navy); letter-spacing: .1em; font-weight: 500; margin-bottom: 26px; }
 .sec-lead { max-width: 620px; font-size: 14.5px; color: #4c5468; letter-spacing: .06em; }
-.glow { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; animation: breathe 9s ease-in-out infinite alternate; }
-@keyframes breathe { from { opacity: .5; } to { opacity: .9; } }
+.glow { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; animation: breathe 6s ease-in-out infinite alternate; }
+@keyframes breathe {
+  from { opacity: .35; transform: scale(.96); }
+  to { opacity: 1; transform: scale(1.06); }
+}
 .en-label { font-family: var(--font-en), serif; font-size: 14px; letter-spacing: .45em; color: var(--gold); margin-bottom: 30px; }
 
 /* purpose */
@@ -165,10 +175,25 @@ body {
 .phase .items span::before { content: ''; position: absolute; left: 0; top: .95em; width: 6px; height: 1px; background: var(--gold); }
 .badge { display: inline-block; margin-top: 14px; font-size: 10.5px; letter-spacing: .2em; color: var(--gold); border: 1px solid var(--gold-light); border-radius: 999px; padding: 3px 14px; }
 
-/* logos */
-.logo-row { display: flex; flex-wrap: wrap; gap: 20px 56px; align-items: center; margin-top: 54px; }
-.logo-item { font-family: var(--font-en), serif; font-size: 15px; letter-spacing: .18em; color: #a9afbc; padding: 14px 0; filter: grayscale(1); transition: .3s; }
-.logo-item:hover { color: var(--navy-soft); }
+/* logos — マーキー（右から左へ流れ続ける） */
+.logo-marquee {
+  margin-top: 54px; overflow: hidden; position: relative;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.logo-track {
+  display: flex; gap: 72px; align-items: center; width: max-content;
+  animation: marquee 28s linear infinite;
+}
+.logo-marquee:hover .logo-track { animation-play-state: paused; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .logo-track { animation-duration: 80s; } }
+.logo-item {
+  font-family: var(--font-en), serif; font-size: 16px; letter-spacing: .18em; color: #a9afbc;
+  padding: 14px 0; filter: grayscale(1); transition: .3s; white-space: nowrap; flex: none;
+}
+.logo-item:hover { color: var(--navy-soft); filter: grayscale(0); }
+.logo-item img { height: 40px; width: auto; display: block; opacity: .75; }
 .logo-note { margin-top: 34px; font-size: 11.5px; color: #8a90a0; letter-spacing: .08em; }
 
 /* media panel */
