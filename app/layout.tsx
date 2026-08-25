@@ -34,6 +34,8 @@ export const metadata: Metadata = {
     locale: "ja_JP",
     type: "website",
   },
+  // 正式公開までは検索結果に出さない（公開時にこのブロックを削除する）
+  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({
